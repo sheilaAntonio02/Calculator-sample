@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div class="flex justify-center items-center w-full h-screen bg-purple-300">
+            <div
+                class="bg-slate-500 bg-cover bg-center w-80 rounded-xl shadow-2xl">
+                <div class="flex flex-col justify-center items-center">
+                    <div class="flex justify-between items-center gap-35 pb-5 pt-3">
+                        <p class="font-sans text-xl font-bold text-white italic">B E L A</p>
+                        <div class=" w-15 h-5 border border-2 border-white bg-gray-600">
+                        </div>
+                    </div>
+                    <input v-model="result"
+                        class="text-white rounded-md border border-2 border-white py-5 px-1 bg-gray-700 text-end text-2xl font-mono"
+                        type="text" placeholder="0">
+                </div>
+                <div>
+                    <div class="grid grid-flow-col grid-rows-5 px-7 py-3 space-y-4 space-x-2">
+                        <div
+                            class="bg-amber-300 border hover:border-white border-amber-500 hover:bg-amber-400 w-15 h-10 rounded-xl">
+                            <button @click="onandoff" class=" text-center p-1 pt-2 text-md font-mono">ON/OFF</button>
+                        </div>
+                        <div
+                            class="bg-cyan-300 hover:bg-cyan-400 border hover:border-white border-cyan-800 w-15 h-10 rounded-xl">
+                            <button @click="press('7')" class="text-center px-5 py-1 text-2xl font-mono">7</button>
+                        </div>
+                        <div
+                            class="bg-cyan-300 hover:bg-cyan-400 border hover:border-white border-cyan-800 w-15 h-10 rounded-xl">
+                            <button @click="press('4')" class="text-center px-5 py-1 text-2xl font-mono">4</button>
+                        </div>
+                        <div
+                            class="bg-cyan-300 hover:bg-cyan-400 border hover:border-white border-cyan-800 w-15 h-10 rounded-xl">
+                            <button @click="press('1')" class="text-center px-5 py-1 text-2xl font-mono">1</button>
+                        </div>
+                        <div
+                            class="bg-cyan-300 hover:bg-cyan-400 border hover:border-white border-cyan-800 w-15 h-10 rounded-xl">
+                            <button @click="press('0')" class="text-center px-5 py-1 text-2xl font-mono">0</button>
+                        </div>
+                        <div
+                            class="bg-red-500 hover:bg-red-600 border hover:border-white border-red-700 w-15 h-10 rounded-xl">
+                            <button @click="clearDisplay()" class="text-center p-1 px-5 text-2xl font-mono">C</button>
+                        </div>
+                        <div
+                            class="bg-cyan-300 hover:bg-cyan-400 border hover:border-white border-cyan-800 w-15 h-10 rounded-xl">
+                            <button @click="press('8')" class="text-center px-5 py-1 text-2xl font-mono">8</button>
+                        </div>
+                        <div
+                            class="bg-cyan-300 hover:bg-cyan-400 border hover:border-white border-cyan-800 w-15 h-10 rounded-xl">
+                            <button @click="press('5')" class="text-center px-5 py-1 text-2xl font-mono">5</button>
+                        </div>
+                        <div
+                            class="bg-cyan-300 hover:bg-cyan-400 border hover:border-white border-cyan-800 w-15 h-10 rounded-xl">
+                            <button @click="press('2')" class="text-center px-5 py-1 text-2xl font-mono">2</button>
+                        </div>
+                        <div class="bg-cyan-300 hover:bg-cyan-400 border hover:border-white border-cyan-800 rounded-xl">
+                            <button @click="press('.')" class="text-center px-5 text-2xl font-mono font-bold">.</button>
+                        </div>
+                        <div
+                            class="bg-green-400 hover:bg-green-500 border hover:border-white border-green-700 w-15 h-10 rounded-xl">
+                            <button class="text-center px-3 py-1 text-2xl font-mono">+/-</button>
+                        </div>
+                        <div
+                            class="bg-cyan-300 hover:bg-cyan-400 border hover:border-white border-cyan-800 w-15 h-10 rounded-xl">
+                            <button @click="press('9')" class="text-center px-5 py-1 text-2xl font-mono">9</button>
+                        </div>
+                        <div
+                            class="bg-cyan-300 hover:bg-cyan-400 border hover:border-white border-cyan-800 w-15 h-10 rounded-xl">
+                            <button @click="press('6')" class="text-center px-5 py-1 text-2xl font-mono">6</button>
+                        </div>
+                        <div
+                            class="bg-cyan-300 hover:bg-cyan-400 border hover:border-white border-cyan-800 w-15 h-10 rounded-xl">
+                            <button @click="press('3')" class="text-center px-5 py-1 text-2xl font-mono">3</button>
+                        </div>
+                        <div
+                            class="bg-teal-600 hover:bg-teal-700 border hover:border-white border-teal-800 w-15 h-10 rounded-xl">
+                            <button @click="showEqual()" class="text-center px-6 py-1 text-2xl font-mono">=</button>
+                        </div>
+                        <div
+                            class="bg-green-400 hover:bg-green-500 border hover:border-white border-green-700 rounded-xl">
+                            <button @click="showOperator('/')"
+                                class="text-center px-6 pt-1 text-2xl font-mono">÷</button>
+                        </div>
+                        <div
+                            class="bg-green-400 hover:bg-green-500 border hover:border-white border-green-700 w-15 h-10 rounded-xl">
+                            <button @click="showOperator('*')" class="text-center px-6 text-2xl font-mono">x</button>
+                        </div>
+                        <div
+                            class="bg-green-400 hover:bg-green-500 border hover:border-white border-green-700  rounded-xl">
+                            <button @click="showOperator('-')" class="px-5 text-4xl font-mono">-</button>
+                        </div>
+                        <div
+                            class="bg-green-400 hover:bg-green-500 border hover:border-white border-green-700 w-15 h-24 rounded-xl row-span-2">
+                            <button @click="showOperator('+')"
+                                class="text-center px-4 pt-5 text-5xl font-mono">+</button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    result: "",
+                    currentInput: "",
+                    operator: "",
+                    firstNum: 0,
+                    success: "",
+                }
+            },
+            methods: {
+                press(value) {
+                    this.currentInput += value;
+                    this.result = this.currentInput;
+                },
+
+                showOperator(op) {
+                    if (this.operator === "" && this.currentInput !== "") {
+                        this.firstNum = parseFloat(this.currentInput);
+                    } 
+                    else {
+                        this.showEqualhere();
+                    }
+                    this.operator = op;
+                    this.currentInput = '';
+                    this.result = this.firstNum;
+                },
+
+                clearDisplay() {
+                    this.result = '';
+                    this.currentInput = '';
+
+                    this.firstNum = 0;
+                    this.operator = "";
+
+                },
+
+
+                showEqualhere() {
+                    let numbers = parseFloat(this.currentInput);
+
+                    if (isNaN(numbers)) {
+                        return true;
+                    }
+                    if (this.operator === "/" && numbers === 0) {
+                        this.result = "Error";
+
+                        return false;
+                    }
+
+                    if (numbers) {
+                        switch (this.operator) {
+                            case "+":
+                                this.firstNum = this.firstNum + numbers;
+                                break;
+                            case "-":
+                                this.firstNum = this.firstNum - numbers;
+                                break;
+                            case "*":
+                                this.firstNum = this.firstNum * numbers;
+                                break;
+                            case "/":
+                                this.firstNum = this.firstNum / numbers;
+                                break;
+
+                            default: this.firstNum = numbers;
+                        }
+                    }
+                    this.result = this.firstNum;
+                    this.currentInput = '';
+                    return;
+                },
+
+                showEqual() {
+                    this.success = this.showEqualhere();
+                    if (!this.success) {
+                        return
+                    }
+                    this.operator = "";
+                },
+                onandoff(){
+                    this.result = "Power On";
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+
+</html>
